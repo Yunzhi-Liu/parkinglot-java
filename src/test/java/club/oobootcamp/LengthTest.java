@@ -54,4 +54,14 @@ class LengthTest {
 
         assertThat(result).isFalse();
     }
+
+    @Test
+    void should_be_true_when_judged_that_three_is_more_than_two() {
+        final Length three = new Length(3);
+        final Length two = new Length(2);
+
+        final boolean result = three.isMoreThan(two);
+
+        assertThat(result).isTrue();
+    }
 }
