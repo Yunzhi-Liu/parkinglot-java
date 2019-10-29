@@ -64,4 +64,13 @@ class LengthTest {
 
         assertThat(result).isTrue();
     }
+
+    @Test
+    void should_be_true_when_judged_one_cm_is_equal_to_one_cm() {
+        final Length oneCM = new Length(1, "cm");
+
+        final boolean result = oneCM.isEquals(oneCM);
+
+        assertThat(result).isTrue();
+    }
 }
