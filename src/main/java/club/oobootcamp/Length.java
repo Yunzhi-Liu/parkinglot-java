@@ -9,6 +9,6 @@ public class Length {
     }
 
     public boolean isEquals(final Length other) {
-        return true;
+        return this.value == other.value;
     }
 }
