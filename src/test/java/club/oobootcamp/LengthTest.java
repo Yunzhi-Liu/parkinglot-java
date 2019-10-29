@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class LengthTest {
 
     @Test
-    void should_be_true_when_comparing_one_and_one() {
+    void should_be_true_when_judged_one_is_equal_to_one() {
         final Length one = new Length(1);
 
         final boolean result = one.isEquals(one);
@@ -16,7 +16,7 @@ class LengthTest {
     }
 
     @Test
-    void should_be_false_when_comparing_one_and_two() {
+    void should_be_false_when_judged_one_is_equal_to_two() {
         final Length one = new Length(1);
         final Length two = new Length(2);
 
