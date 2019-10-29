@@ -11,4 +11,8 @@ public class Length {
     public boolean isEquals(final Length other) {
         return this.value == other.value;
     }
+
+    public boolean isLessThan(final Length other) {
+        return true;
+    }
 }
