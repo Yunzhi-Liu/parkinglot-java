@@ -3,6 +3,7 @@ package club.oobootcamp.parkinglot;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class ParkingLotTest {
 
@@ -26,5 +27,14 @@ class ParkingLotTest {
         final Ticket ticket2 = parkingLot.park(car2);
 
         assertThat(ticket1).isNotEqualTo(ticket2);
+    }
+
+    @Test
+    void given_a_parking_lot_without_space_when_parking_a_cara_then_failure() {
+        final Car car = new Car();
+        final ParkingLot parkingLot = new ParkingLot(0);
+
+        assertThatThrownBy(() -> parkingLot.park(car))
+            .isInstanceOf(ParkingFailureException.class);
     }
 }
