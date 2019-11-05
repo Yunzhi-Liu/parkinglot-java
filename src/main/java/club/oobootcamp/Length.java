@@ -26,11 +26,17 @@ public class Length {
     }
 
     public boolean isMoreThan(final Length other) {
-        return this.value > other.value;
+        if (this.unit.equals(other.unit)) {
+            return this.value > other.value;
+        }
+        return convertToCentimeter().value > other.convertToCentimeter().value;
     }
 
     public Length convertToCentimeter() {
-        return new Length(100, "cm");
+        if (unit.equals("cm")) {
+            return this;
+        }
+        return new Length(value * 100, "cm");
     }
 
     @Override

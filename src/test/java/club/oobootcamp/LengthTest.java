@@ -82,4 +82,14 @@ class LengthTest {
 
         assertThat(actualLength).isEqualTo(new Length(100, "cm"));
     }
+
+    @Test
+    void should_be_true_when_judged_that_one_meter_is_more_than_ten_centimeters() {
+        final Length oneMeter = new Length(1, "m");
+        final Length tenCentimeters = new Length(10, "cm");
+
+        final boolean result = oneMeter.isMoreThan(tenCentimeters);
+
+        assertThat(result).isTrue();
+    }
 }
