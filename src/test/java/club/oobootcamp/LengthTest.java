@@ -73,4 +73,13 @@ class LengthTest {
 
         assertThat(result).isTrue();
     }
+
+    @Test
+    void should_return_hundred_centimeters_when_converting_one_meter_to_centimeters() {
+        final Length oneMeter = new Length(1, "m");
+
+        final Length actualLength = oneMeter.convertToCentimeter();
+
+        assertThat(actualLength).isEqualTo(new Length(100, "cm"));
+    }
 }
