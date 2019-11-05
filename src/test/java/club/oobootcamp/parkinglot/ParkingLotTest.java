@@ -15,4 +15,16 @@ class ParkingLotTest {
 
         assertThat(ticket).isNotNull();
     }
+
+    @Test
+    void given_a_parking_lot_with_lots_of_spaces_when_parking_two_cars_then_return_two_tickets() {
+        final Car car1 = new Car();
+        final Car car2 = new Car();
+        final ParkingLot parkingLot = new ParkingLot(2);
+
+        final Ticket ticket1 = parkingLot.park(car1);
+        final Ticket ticket2 = parkingLot.park(car2);
+
+        assertThat(ticket1).isNotEqualTo(ticket2);
+    }
 }
