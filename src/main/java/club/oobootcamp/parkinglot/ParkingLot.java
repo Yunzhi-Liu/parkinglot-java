@@ -25,6 +25,6 @@ public class ParkingLot {
         if (!cars.containsKey(ticket)) {
             throw new PickUpFailureException();
         }
-        return cars.get(ticket);
+        return cars.remove(ticket);
     }
 }
