@@ -22,6 +22,9 @@ public class ParkingLot {
     }
 
     public Car pickUp(final Ticket ticket) {
+        if (!cars.containsKey(ticket)) {
+            throw new PickUpFailureException();
+        }
         return cars.get(ticket);
     }
 }

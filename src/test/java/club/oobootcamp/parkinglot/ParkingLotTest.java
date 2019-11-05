@@ -61,4 +61,14 @@ class ParkingLotTest {
 
         assertThat(actualCar).isEqualTo(myCar);
     }
+
+    @Test
+    void given_a_parking_lot_that_parked_my_car_when_picking_up_a_car_using_an_illegal_ticket_then_failure() {
+        final Car myCar = new Car();
+        final ParkingLot parkingLot = new ParkingLot(1);
+        parkingLot.park(myCar);
+
+        assertThatThrownBy(() -> parkingLot.pickUp(new Ticket()))
+            .isInstanceOf(PickUpFailureException.class);
+    }
 }
