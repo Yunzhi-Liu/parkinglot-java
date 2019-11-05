@@ -48,4 +48,17 @@ class ParkingLotTest {
 
         assertThat(actualCar).isEqualTo(myCar);
     }
+
+    @Test
+    void given_a_parking_lot_parked_with_lots_of_cars_and_including_my_car_when_picking_up_a_car_using_my_ticket_then_return_my_car() {
+        final Car car = new Car();
+        final Car myCar = new Car();
+        final ParkingLot parkingLot = new ParkingLot(2);
+        parkingLot.park(car);
+        Ticket myTicket = parkingLot.park(myCar);
+
+        final Car actualCar = parkingLot.pickUp(myTicket);
+
+        assertThat(actualCar).isEqualTo(myCar);
+    }
 }
