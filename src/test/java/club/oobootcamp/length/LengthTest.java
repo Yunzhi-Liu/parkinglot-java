@@ -1,4 +1,4 @@
-package club.oobootcamp;
+package club.oobootcamp.length;
 
 import org.junit.jupiter.api.Test;
 
@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class LengthTest {
 
     @Test
-    void should_be_true_when_judged_one_is_equal_to_one() {
+    void should_be_true_when_judged_that_one_is_equal_to_one() {
         final Length one = new Length(1);
 
         final boolean result = one.isEquals(one);
@@ -16,7 +16,7 @@ class LengthTest {
     }
 
     @Test
-    void should_be_false_when_judged_one_is_equal_to_two() {
+    void should_be_false_when_judged_that_one_is_equal_to_two() {
         final Length one = new Length(1);
         final Length two = new Length(2);
 
@@ -66,10 +66,10 @@ class LengthTest {
     }
 
     @Test
-    void should_be_true_when_judged_one_cm_is_equal_to_one_cm() {
-        final Length oneCM = new Length(1, "cm");
+    void should_be_true_when_judged_that_one_centimeter_is_equal_to_one_centimeter() {
+        final Length oneCentimeter = new Length(1, "cm");
 
-        final boolean result = oneCM.isEquals(oneCM);
+        final boolean result = oneCentimeter.isEquals(oneCentimeter);
 
         assertThat(result).isTrue();
     }

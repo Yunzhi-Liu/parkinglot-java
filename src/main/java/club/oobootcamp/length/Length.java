@@ -1,4 +1,4 @@
-package club.oobootcamp;
+package club.oobootcamp.length;
 
 import java.util.Objects;
 
