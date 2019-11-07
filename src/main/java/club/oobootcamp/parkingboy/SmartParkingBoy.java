@@ -8,11 +8,13 @@ import java.util.List;
 
 public class SmartParkingBoy {
 
-    public SmartParkingBoy(final List<ParkingLot> parkingLots) {
+    private final List<ParkingLot> parkingLots;
 
+    public SmartParkingBoy(final List<ParkingLot> parkingLots) {
+        this.parkingLots = parkingLots;
     }
 
     public Ticket park(final Car car) {
-        return new Ticket();
+        return parkingLots.get(0).park(car);
     }
 }

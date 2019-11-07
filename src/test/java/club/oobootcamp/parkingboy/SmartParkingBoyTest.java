@@ -5,6 +5,7 @@ import club.oobootcamp.parkinglot.ParkingLot;
 import club.oobootcamp.parkinglot.Ticket;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -20,5 +21,18 @@ class SmartParkingBoyTest {
         final Ticket ticket = smartParkingBoy.park(new Car());
 
         assertThat(ticket).isNotNull();
+    }
+
+    @Test
+    void given_two_parking_lots_that_the_first_empty_space_is_more_than_the_second_when_parking_one_car_then_the_car_parked_in_the_first_parking_lot() {
+        final Car car = new Car();
+        final ParkingLot parkingLot1 = new ParkingLot(2);
+        final ParkingLot parkingLot2 = new ParkingLot(1);
+        final List<ParkingLot> parkingLots = Arrays.asList(parkingLot1, parkingLot2);
+        final SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
+
+        final Ticket ticket = smartParkingBoy.park(car);
+
+        assertThat(parkingLot1.contains(ticket)).isTrue();
     }
 }
