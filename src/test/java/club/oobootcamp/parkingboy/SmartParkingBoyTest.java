@@ -35,4 +35,17 @@ class SmartParkingBoyTest {
 
         assertThat(parkingLot1.contains(ticket)).isTrue();
     }
+
+    @Test
+    void given_two_parking_lots_that_the_second_empty_space_is_more_than_the_first_when_parking_one_car_then_the_car_parked_in_the_second_parking_lot() {
+        final Car car = new Car();
+        final ParkingLot parkingLot1 = new ParkingLot(1);
+        final ParkingLot parkingLot2 = new ParkingLot(2);
+        final List<ParkingLot> parkingLots = Arrays.asList(parkingLot1, parkingLot2);
+        final SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
+
+        final Ticket ticket = smartParkingBoy.park(car);
+
+        assertThat(parkingLot2.contains(ticket)).isTrue();
+    }
 }

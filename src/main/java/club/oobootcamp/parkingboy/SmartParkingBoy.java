@@ -4,7 +4,9 @@ import club.oobootcamp.parkinglot.Car;
 import club.oobootcamp.parkinglot.ParkingLot;
 import club.oobootcamp.parkinglot.Ticket;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 public class SmartParkingBoy {
 
@@ -15,6 +17,12 @@ public class SmartParkingBoy {
     }
 
     public Ticket park(final Car car) {
-        return parkingLots.get(0).park(car);
+        Optional<ParkingLot> maxParkingLot = parkingLots.stream()
+            .max(Comparator.comparing(ParkingLot::getEmptySpaceCount));
+        Ticket ticket = null;
+        if (maxParkingLot.isPresent()) {
+            ticket = maxParkingLot.get().park(car);
+        }
+        return ticket;
     }
 }

@@ -28,6 +28,10 @@ public class ParkingLot {
         return cars.remove(ticket);
     }
 
+    public int getEmptySpaceCount() {
+        return capacity - cars.size();
+    }
+
     public boolean existEmptyParking() {
         return capacity - cars.size() > 0;
     }
