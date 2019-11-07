@@ -3,6 +3,7 @@ package club.oobootcamp.parkingboy;
 import club.oobootcamp.parkinglot.Car;
 import club.oobootcamp.parkinglot.ParkingFailureException;
 import club.oobootcamp.parkinglot.ParkingLot;
+import club.oobootcamp.parkinglot.PickUpFailureException;
 import club.oobootcamp.parkinglot.Ticket;
 import org.junit.jupiter.api.Test;
 
@@ -110,5 +111,30 @@ class SmartParkingBoyTest {
         Car actualCar = smartParkingBoy.pickUp(myTicket);
 
         assertThat(actualCar).isEqualTo(myCar);
+    }
+
+    @Test
+    void given_a_parking_lot_that_parked_my_car_when_picking_up_a_car_using_an_illegal_ticket_then_failure() {
+        final Car myCar = new Car();
+        final ParkingLot parkingLot = new ParkingLot(2);
+        parkingLot.park(myCar);
+        final List<ParkingLot> parkingLots = Collections.singletonList(parkingLot);
+        final SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
+
+        assertThatThrownBy(() -> smartParkingBoy.pickUp(new Ticket()))
+            .isInstanceOf(PickUpFailureException.class);
+    }
+
+    @Test
+    void given_a_parking_lot_that_parked_my_car_when_picking_up_a_car_twice_using_one_ticket_then_the_second_failure() {
+        final Car myCar = new Car();
+        final ParkingLot parkingLot = new ParkingLot(1);
+        final Ticket myTicket = parkingLot.park(myCar);
+        parkingLot.pickUp(myTicket);
+        final List<ParkingLot> parkingLots = Collections.singletonList(parkingLot);
+        final SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
+
+        assertThatThrownBy(() -> smartParkingBoy.pickUp(myTicket))
+            .isInstanceOf(PickUpFailureException.class);
     }
 }
