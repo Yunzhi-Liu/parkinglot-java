@@ -3,6 +3,7 @@ package club.oobootcamp.parkingboy;
 import club.oobootcamp.parkinglot.Car;
 import club.oobootcamp.parkinglot.ParkingFailureException;
 import club.oobootcamp.parkinglot.ParkingLot;
+import club.oobootcamp.parkinglot.PickUpFailureException;
 import club.oobootcamp.parkinglot.Ticket;
 
 import java.util.Comparator;
@@ -24,6 +25,10 @@ public class SmartParkingBoy {
     }
 
     public Car pickUp(final Ticket ticket) {
-        return parkingLots.get(0).pickUp(ticket);
+        return parkingLots.stream()
+            .filter(parkingLot -> parkingLot.contains(ticket))
+            .findAny()
+            .orElseThrow(PickUpFailureException::new)
+            .pickUp(ticket);
     }
 }

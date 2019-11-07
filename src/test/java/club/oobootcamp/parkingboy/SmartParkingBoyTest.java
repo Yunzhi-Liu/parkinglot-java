@@ -96,4 +96,19 @@ class SmartParkingBoyTest {
 
         assertThat(actualCar).isEqualTo(myCar);
     }
+
+    @Test
+    void given_two_parking_lots_parked_with_lots_of_cars_while_the_second_parking_lot_includes_my_car_when_picking_up_a_car_using_my_ticket_then_return_my_car() {
+        final ParkingLot parkingLot1 = new ParkingLot(1);
+        parkingLot1.park(new Car());
+        final Car myCar = new Car();
+        final ParkingLot parkingLot2 = new ParkingLot(1);
+        final Ticket myTicket = parkingLot2.park(myCar);
+        final List<ParkingLot> parkingLots = Arrays.asList(parkingLot1, parkingLot2);
+        final SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
+
+        Car actualCar = smartParkingBoy.pickUp(myTicket);
+
+        assertThat(actualCar).isEqualTo(myCar);
+    }
 }
