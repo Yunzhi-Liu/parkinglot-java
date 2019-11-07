@@ -124,4 +124,17 @@ class GraduateParkingBoyTest {
         assertThatThrownBy(() -> graduateParkingBoy.pickUp(new Ticket()))
             .isInstanceOf(PickUpFailureException.class);
     }
+
+    @Test
+    void given_a_parking_lot_that_parked_my_car_when_picking_up_a_car_twice_using_one_ticket_then_the_second_failure() {
+        final Car myCar = new Car();
+        final ParkingLot parkingLot = new ParkingLot(1);
+        final Ticket myTicket = parkingLot.park(myCar);
+        parkingLot.pickUp(myTicket);
+        final List<ParkingLot> parkingLots = Collections.singletonList(parkingLot);
+        final GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
+
+        assertThatThrownBy(() -> graduateParkingBoy.pickUp(myTicket))
+            .isInstanceOf(PickUpFailureException.class);
+    }
 }
