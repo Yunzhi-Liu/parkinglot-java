@@ -31,4 +31,8 @@ public class ParkingLot {
     public boolean existEmptyParking() {
         return capacity - cars.size() > 0;
     }
+
+    public boolean contains(final Ticket ticket) {
+        return cars.containsKey(ticket);
+    }
 }
