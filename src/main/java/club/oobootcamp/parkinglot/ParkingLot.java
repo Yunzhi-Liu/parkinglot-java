@@ -9,11 +9,11 @@ public class ParkingLot {
 
     public ParkingLot(final int capacity) {
         this.capacity = capacity;
-        cars = new HashMap<>();
+        cars = new HashMap<>(capacity);
     }
 
     public Ticket park(final Car car) {
-        if (capacity <= 0) {
+        if (!existEmptyParking()) {
             throw new ParkingFailureException();
         }
         Ticket ticket = new Ticket();
@@ -22,7 +22,7 @@ public class ParkingLot {
     }
 
     public Car pickUp(final Ticket ticket) {
-        if (!cars.containsKey(ticket)) {
+        if (!contains(ticket)) {
             throw new PickUpFailureException();
         }
         return cars.remove(ticket);
