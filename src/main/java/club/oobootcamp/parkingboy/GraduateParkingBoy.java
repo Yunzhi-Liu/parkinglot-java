@@ -1,11 +1,11 @@
 package club.oobootcamp.parkingboy;
 
 import club.oobootcamp.parkinglot.Car;
+import club.oobootcamp.parkinglot.ParkingFailureException;
 import club.oobootcamp.parkinglot.ParkingLot;
 import club.oobootcamp.parkinglot.Ticket;
 
 import java.util.List;
-import java.util.Optional;
 
 public class GraduateParkingBoy {
     private final List<ParkingLot> parkingLots;
@@ -15,13 +15,10 @@ public class GraduateParkingBoy {
     }
 
     public Ticket park(final Car car) {
-        Optional<ParkingLot> availableParkingLot = parkingLots.stream()
+        return parkingLots.stream()
             .filter(ParkingLot::existEmptyParking)
-            .findFirst();
-        Ticket ticket = null;
-        if (availableParkingLot.isPresent()) {
-            ticket = availableParkingLot.get().park(car);
-        }
-        return ticket;
+            .findFirst()
+            .orElseThrow(ParkingFailureException::new)
+            .park(car);
     }
 }
