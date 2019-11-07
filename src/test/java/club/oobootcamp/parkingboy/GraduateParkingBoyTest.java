@@ -3,6 +3,7 @@ package club.oobootcamp.parkingboy;
 import club.oobootcamp.parkinglot.Car;
 import club.oobootcamp.parkinglot.ParkingFailureException;
 import club.oobootcamp.parkinglot.ParkingLot;
+import club.oobootcamp.parkinglot.PickUpFailureException;
 import club.oobootcamp.parkinglot.Ticket;
 import org.junit.jupiter.api.Test;
 
@@ -110,5 +111,17 @@ class GraduateParkingBoyTest {
         Car actualCar = graduateParkingBoy.pickUp(myTicket);
 
         assertThat(actualCar).isEqualTo(myCar);
+    }
+
+    @Test
+    void given_a_parking_lot_that_parked_my_car_when_picking_up_a_car_using_an_illegal_ticket_then_failure() {
+        final Car myCar = new Car();
+        final ParkingLot parkingLot = new ParkingLot(2);
+        parkingLot.park(myCar);
+        final List<ParkingLot> parkingLots = Collections.singletonList(parkingLot);
+        final GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
+
+        assertThatThrownBy(() -> graduateParkingBoy.pickUp(new Ticket()))
+            .isInstanceOf(PickUpFailureException.class);
     }
 }
