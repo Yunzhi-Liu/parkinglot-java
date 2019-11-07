@@ -48,4 +48,26 @@ class SmartParkingBoyTest {
 
         assertThat(parkingLot2.contains(ticket)).isTrue();
     }
+
+    @Test
+    void given_two_same_parking_lots_with_two_space_when_parking_four_cars_then_the_cars_alternately_parked_in_two_parking_lot() {
+        final Car car1 = new Car();
+        final Car car2 = new Car();
+        final Car car3 = new Car();
+        final Car car4 = new Car();
+        final ParkingLot parkingLot1 = new ParkingLot(2);
+        final ParkingLot parkingLot2 = new ParkingLot(2);
+        final List<ParkingLot> parkingLots = Arrays.asList(parkingLot1, parkingLot2);
+        final SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
+
+        final Ticket ticket1 = smartParkingBoy.park(car1);
+        final Ticket ticket2 = smartParkingBoy.park(car2);
+        final Ticket ticket3 = smartParkingBoy.park(car3);
+        final Ticket ticket4 = smartParkingBoy.park(car4);
+
+        assertThat(parkingLot1.contains(ticket1)).isTrue();
+        assertThat(parkingLot2.contains(ticket2)).isTrue();
+        assertThat(parkingLot1.contains(ticket3)).isTrue();
+        assertThat(parkingLot2.contains(ticket4)).isTrue();
+    }
 }
