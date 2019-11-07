@@ -3,32 +3,22 @@ package club.oobootcamp.parkingboy;
 import club.oobootcamp.parkinglot.Car;
 import club.oobootcamp.parkinglot.ParkingFailureException;
 import club.oobootcamp.parkinglot.ParkingLot;
-import club.oobootcamp.parkinglot.PickUpFailureException;
 import club.oobootcamp.parkinglot.Ticket;
 
 import java.util.Comparator;
 import java.util.List;
 
-public class SmartParkingBoy {
-
-    private final List<ParkingLot> parkingLots;
+public class SmartParkingBoy extends AbstractParkingBoy {
 
     public SmartParkingBoy(final List<ParkingLot> parkingLots) {
-        this.parkingLots = parkingLots;
+        super(parkingLots);
     }
 
+    @Override
     public Ticket park(final Car car) {
         return parkingLots.stream()
             .max(Comparator.comparing(ParkingLot::getEmptySpaceCount))
             .orElseThrow(ParkingFailureException::new)
             .park(car);
-    }
-
-    public Car pickUp(final Ticket ticket) {
-        return parkingLots.stream()
-            .filter(parkingLot -> parkingLot.contains(ticket))
-            .findAny()
-            .orElseThrow(PickUpFailureException::new)
-            .pickUp(ticket);
     }
 }
