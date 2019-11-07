@@ -22,4 +22,8 @@ public class SmartParkingBoy {
             .orElseThrow(ParkingFailureException::new)
             .park(car);
     }
+
+    public Car pickUp(final Ticket ticket) {
+        return parkingLots.get(0).pickUp(ticket);
+    }
 }

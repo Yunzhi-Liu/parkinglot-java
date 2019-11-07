@@ -83,4 +83,17 @@ class SmartParkingBoyTest {
         assertThatThrownBy(() -> smartParkingBoy.park(new Car()))
             .isInstanceOf(ParkingFailureException.class);
     }
+
+    @Test
+    void given_a_parking_lot_that_only_parked_my_car_when_picking_up_a_car_using_my_ticket_then_return_my_car() {
+        final Car myCar = new Car();
+        final ParkingLot parkingLot = new ParkingLot(1);
+        final Ticket myTicket = parkingLot.park(myCar);
+        final List<ParkingLot> parkingLots = Collections.singletonList(parkingLot);
+        final SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
+
+        final Car actualCar = smartParkingBoy.pickUp(myTicket);
+
+        assertThat(actualCar).isEqualTo(myCar);
+    }
 }
