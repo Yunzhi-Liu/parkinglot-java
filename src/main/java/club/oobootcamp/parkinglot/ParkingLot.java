@@ -27,4 +27,8 @@ public class ParkingLot {
         }
         return cars.remove(ticket);
     }
+
+    public boolean existEmptyParking() {
+        return capacity - cars.size() > 0;
+    }
 }

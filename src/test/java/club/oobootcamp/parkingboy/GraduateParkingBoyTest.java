@@ -39,4 +39,20 @@ class GraduateParkingBoyTest {
         assertThat(parkingLot1.pickUp(ticket1)).isEqualTo(car1);
         assertThat(parkingLot1.pickUp(ticket2)).isEqualTo(car2);
     }
+
+    @Test
+    void given_two_parking_lots_with_few_spaces_when_parking_two_cars_then_the_first_car_parked_in_the_first_parking_lot_and_the_second_car_parked_in_the_second_parking_lot() {
+        final Car car1 = new Car();
+        final Car car2 = new Car();
+        final ParkingLot parkingLot1 = new ParkingLot(1);
+        final ParkingLot parkingLot2 = new ParkingLot(1);
+        List<ParkingLot> parkingLots = Arrays.asList(parkingLot1, parkingLot2);
+        final GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
+
+        final Ticket ticket1 = graduateParkingBoy.park(car1);
+        final Ticket ticket2 = graduateParkingBoy.park(car2);
+
+        assertThat(parkingLot1.pickUp(ticket1)).isEqualTo(car1);
+        assertThat(parkingLot2.pickUp(ticket2)).isEqualTo(car2);
+    }
 }
