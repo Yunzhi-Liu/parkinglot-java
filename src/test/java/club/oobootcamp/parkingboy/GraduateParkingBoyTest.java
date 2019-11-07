@@ -97,4 +97,18 @@ class GraduateParkingBoyTest {
 
         assertThat(actualCar).isEqualTo(myCar);
     }
+
+    @Test
+    void given_a_parking_lot_parked_with_lots_of_cars_and_including_my_car_when_picking_up_a_car_using_my_ticket_then_return_my_car() {
+        final Car myCar = new Car();
+        final ParkingLot parkingLot = new ParkingLot(2);
+        parkingLot.park(new Car());
+        final Ticket myTicket = parkingLot.park(myCar);
+        final List<ParkingLot> parkingLots = Collections.singletonList(parkingLot);
+        final GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
+
+        Car actualCar = graduateParkingBoy.pickUp(myTicket);
+
+        assertThat(actualCar).isEqualTo(myCar);
+    }
 }
