@@ -3,6 +3,7 @@ package club.oobootcamp.parkingboy;
 import club.oobootcamp.parkinglot.Car;
 import club.oobootcamp.parkinglot.ParkingFailureException;
 import club.oobootcamp.parkinglot.ParkingLot;
+import club.oobootcamp.parkinglot.PickUpFailureException;
 import club.oobootcamp.parkinglot.Ticket;
 import org.junit.jupiter.api.Test;
 
@@ -98,5 +99,58 @@ class SuperParkingBoyTest {
 
         assertThatThrownBy(() -> superParkingBoy.park(new Car()))
             .isInstanceOf(ParkingFailureException.class);
+    }
+
+    @Test
+    void given_a_parking_lot_that_only_parked_my_car_when_picking_up_a_car_using_my_ticket_then_return_my_car() {
+        final Car myCar = new Car();
+        final ParkingLot parkingLot = new ParkingLot(1);
+        final Ticket myTicket = parkingLot.park(myCar);
+        final List<ParkingLot> parkingLots = Collections.singletonList(parkingLot);
+        final SuperParkingBoy superParkingBoy = new SuperParkingBoy(parkingLots);
+
+        final Car actualCar = superParkingBoy.pickUp(myTicket);
+
+        assertThat(actualCar).isEqualTo(myCar);
+    }
+
+    @Test
+    void given_two_parking_lots_parked_with_lots_of_cars_while_the_second_parking_lot_includes_my_car_when_picking_up_a_car_using_my_ticket_then_return_my_car() {
+        final ParkingLot parkingLot1 = new ParkingLot(1);
+        parkingLot1.park(new Car());
+        final Car myCar = new Car();
+        final ParkingLot parkingLot2 = new ParkingLot(1);
+        final Ticket myTicket = parkingLot2.park(myCar);
+        final List<ParkingLot> parkingLots = Arrays.asList(parkingLot1, parkingLot2);
+        final SuperParkingBoy superParkingBoy = new SuperParkingBoy(parkingLots);
+
+        Car actualCar = superParkingBoy.pickUp(myTicket);
+
+        assertThat(actualCar).isEqualTo(myCar);
+    }
+
+    @Test
+    void given_a_parking_lot_that_parked_my_car_when_picking_up_a_car_using_an_illegal_ticket_then_failure() {
+        final Car myCar = new Car();
+        final ParkingLot parkingLot = new ParkingLot(2);
+        parkingLot.park(myCar);
+        final List<ParkingLot> parkingLots = Collections.singletonList(parkingLot);
+        final SuperParkingBoy superParkingBoy = new SuperParkingBoy(parkingLots);
+
+        assertThatThrownBy(() -> superParkingBoy.pickUp(new Ticket()))
+            .isInstanceOf(PickUpFailureException.class);
+    }
+
+    @Test
+    void given_a_parking_lot_that_parked_my_car_when_picking_up_a_car_twice_using_one_ticket_then_the_second_failure() {
+        final Car myCar = new Car();
+        final ParkingLot parkingLot = new ParkingLot(1);
+        final Ticket myTicket = parkingLot.park(myCar);
+        parkingLot.pickUp(myTicket);
+        final List<ParkingLot> parkingLots = Collections.singletonList(parkingLot);
+        final SuperParkingBoy superParkingBoy = new SuperParkingBoy(parkingLots);
+
+        assertThatThrownBy(() -> superParkingBoy.pickUp(myTicket))
+            .isInstanceOf(PickUpFailureException.class);
     }
 }
