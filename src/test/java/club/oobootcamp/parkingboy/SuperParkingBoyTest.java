@@ -88,4 +88,15 @@ class SuperParkingBoyTest {
         assertThatThrownBy(() -> superParkingBoy.park(new Car()))
             .isInstanceOf(ParkingFailureException.class);
     }
+
+    @Test
+    void given_two_parking_lots_that_are_filled_when_parking_a_car_then_failure() {
+        final ParkingLot parkingLot1 = new ParkingLot(0);
+        final ParkingLot parkingLot2 = new ParkingLot(0);
+        List<ParkingLot> parkingLots = Arrays.asList(parkingLot1, parkingLot2);
+        final SuperParkingBoy superParkingBoy = new SuperParkingBoy(parkingLots);
+
+        assertThatThrownBy(() -> superParkingBoy.park(new Car()))
+            .isInstanceOf(ParkingFailureException.class);
+    }
 }
