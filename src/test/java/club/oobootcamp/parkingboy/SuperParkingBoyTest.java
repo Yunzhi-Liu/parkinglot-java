@@ -1,6 +1,7 @@
 package club.oobootcamp.parkingboy;
 
 import club.oobootcamp.parkinglot.Car;
+import club.oobootcamp.parkinglot.ParkingFailureException;
 import club.oobootcamp.parkinglot.ParkingLot;
 import club.oobootcamp.parkinglot.Ticket;
 import org.junit.jupiter.api.Test;
@@ -10,6 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class SuperParkingBoyTest {
 
@@ -77,5 +79,13 @@ class SuperParkingBoyTest {
         final Ticket ticket = superParkingBoy.park(new Car());
 
         assertThat(parkingLot3.contains(ticket)).isTrue();
+    }
+
+    @Test
+    void given_zero_parking_lot_when_parking_a_car_then_parked_failure() {
+        final SuperParkingBoy superParkingBoy = new SuperParkingBoy(Collections.emptyList());
+
+        assertThatThrownBy(() -> superParkingBoy.park(new Car()))
+            .isInstanceOf(ParkingFailureException.class);
     }
 }
