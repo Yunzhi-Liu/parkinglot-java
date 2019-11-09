@@ -4,7 +4,9 @@ import club.oobootcamp.parkinglot.Car;
 import club.oobootcamp.parkinglot.ParkingLot;
 import club.oobootcamp.parkinglot.Ticket;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 public class SuperParkingBoy extends AbstractParkingBoy {
     public SuperParkingBoy(final List<ParkingLot> parkingLots) {
@@ -13,17 +15,11 @@ public class SuperParkingBoy extends AbstractParkingBoy {
 
     @Override
     public Ticket park(final Car car) {
-        Ticket ticket = new Ticket();
-        if (parkingLots.size() >= 2) {
-            ParkingLot firstParkingLot = parkingLots.get(0);
-            ParkingLot secondParkingLot = parkingLots.get(1);
-            if (firstParkingLot.getVacancyRate() > secondParkingLot.getVacancyRate()) {
-                ticket = firstParkingLot.park(car);
-            } else if (firstParkingLot.getVacancyRate() < secondParkingLot.getVacancyRate()) {
-                ticket = secondParkingLot.park(car);
-            } else {
-                ticket = firstParkingLot.park(car);
-            }
+        Optional<ParkingLot> maxVacancyRate = parkingLots.stream()
+            .max(Comparator.comparing(ParkingLot::getVacancyRate));
+        Ticket ticket = null;
+        if (maxVacancyRate.isPresent()) {
+            ticket = maxVacancyRate.get().park(car);
         }
         return ticket;
     }
