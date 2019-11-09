@@ -14,6 +14,13 @@ public class SuperParkingBoy extends AbstractParkingBoy {
     @Override
     public Ticket park(final Car car) {
         Ticket ticket = new Ticket();
+        if (parkingLots.size() >= 2) {
+            ParkingLot firstParkingLot = parkingLots.get(0);
+            ParkingLot secondParkingLot = parkingLots.get(1);
+            if (firstParkingLot.getVacancyRate() > secondParkingLot.getVacancyRate()) {
+                ticket = firstParkingLot.park(car);
+            }
+        }
         return ticket;
     }
 }

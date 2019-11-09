@@ -39,4 +39,8 @@ public class ParkingLot {
     public boolean contains(final Ticket ticket) {
         return cars.containsKey(ticket);
     }
+
+    public double getVacancyRate() {
+        return getEmptySpaceCount() / (double) capacity;
+    }
 }
