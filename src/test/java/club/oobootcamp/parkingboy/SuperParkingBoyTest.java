@@ -36,4 +36,17 @@ class SuperParkingBoyTest {
 
         assertThat(parkingLot1.contains(ticket)).isTrue();
     }
+
+    @Test
+    void given_two_parking_lots_that_the_second_vacancy_rate_is_higher_than_the_first_one_when_parking_one_car_then_parked_in_the_second_one() {
+        final ParkingLot parkingLot1 = new ParkingLot(5);
+        parkingLot1.park(new Car());
+        final ParkingLot parkingLot2 = new ParkingLot(10);
+        parkingLot2.park(new Car());
+        final SuperParkingBoy superParkingBoy = new SuperParkingBoy(Arrays.asList(parkingLot1, parkingLot2));
+
+        final Ticket ticket = superParkingBoy.park(new Car());
+
+        assertThat(parkingLot2.contains(ticket)).isTrue();
+    }
 }

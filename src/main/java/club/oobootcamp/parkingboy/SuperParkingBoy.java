@@ -20,6 +20,9 @@ public class SuperParkingBoy extends AbstractParkingBoy {
             if (firstParkingLot.getVacancyRate() > secondParkingLot.getVacancyRate()) {
                 ticket = firstParkingLot.park(car);
             }
+            if (firstParkingLot.getVacancyRate() < secondParkingLot.getVacancyRate()) {
+                ticket = secondParkingLot.park(car);
+            }
         }
         return ticket;
     }
